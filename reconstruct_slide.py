@@ -1,10 +1,10 @@
 import torch
-from Camelyon import Camelyon
+from Segmentation_Patching import SegPatching
 from torchvision.utils import save_image
 import torch.nn.functional as F
 
 if __name__ == "__main__":
-    dataset = Camelyon("Data/normal_077.tif")
+    dataset = SegPatching("tumors/tumor_026.tif")
 
     ps = dataset.patch_size
     grid_w = dataset.width // ps
@@ -21,9 +21,8 @@ if __name__ == "__main__":
     print("Reconstructing...")
 
     for i, (gy, gx) in enumerate(dataset.valid_coords):
-        patch = dataset[i]
+        patch = dataset[i]["patch"]
 
-        # downscale patch
         patch = F.interpolate(
             patch.unsqueeze(0),
             scale_factor=1/scale,
@@ -36,4 +35,4 @@ if __name__ == "__main__":
 
         canvas[:, y:y+patch.shape[1], x:x+patch.shape[2]] = patch
 
-    save_image(canvas, "reconstructed_downscaled2.png")
+    save_image(canvas, "reconstructed_26.png")
