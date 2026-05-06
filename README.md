@@ -1,4 +1,4 @@
-# wsi-segmentation-patching
+# WSI Tissue Segmentation Patching
 
 Tissue-aware patch extraction pipeline for whole-slide histopathology images, with reconstruction utilities.
 
